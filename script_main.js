@@ -76,7 +76,9 @@ function changeVideo(videoId, number) {
     let race_key = document.querySelector("#result").value+' '+document.querySelector(`.raceNumBtn-${number}`).textContent.match(/\d+/)[0];
     console.log("레이스 키 : ", race_key)
 
-    fetch(`https://kraserver.pythonanywhere.com/get-data?key=${race_key}`)
+    fetch(`https://kraserver.pythonanywhere.com/get-data?key=${race_key}`, {
+      mode: 'cors'
+    })
       .then(response => response.json())
       .then(data => {
         console.log(data);
