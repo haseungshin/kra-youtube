@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="kor">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="Cache-Control" content="no-store">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="fonts/icomoon/style.css">
+    <link rel="stylesheet" href="css/rome.css">
+    <link rel="stylesheet" href="css_pc.css">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+    <!-- Style -->
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://www.youtube.com/iframe_api"></script>
+
+
+    <title>KRA Videoㄹㄹㄹ</title>
+</head>
+
+<body>
+    <div id="main-container" class="main-container">
+        <div id="left-box" class="left-box">
+            <iframe id="ytplayer" class="ytplayer" width="560" height="315" src="https://www.youtube.com/embed/wGZHSpdaxhg?vq=hd1080&rel=0&autoplay=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            
+        </div>
+        <div id="right-box" class="right-box">
+            <div class="right-menu">
+                <button class="locationBtn" id="seoul" onclick="changeLocation('(서울)')">서울</button>
+                <button class="locationBtn" id="busan" onclick="changeLocation('(부산)')">부산</button>
+                <button class="locationBtn" id="jeju" onclick="changeLocation('(제주)')">제주</button>
+            
+            </div>
+            <div class="right-top-content">
+                <div class="content">
+                    <div class="container text-left">
+                        <div class="row justify-content-center">
+                            <div class="col-md-10 text-center">
+
+                                <form action="#" class="row">
+                                    <div class="col-md-12">
+                                            <div id="inline_cal"></div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="right-middle-content">
+                <input type="text" class="form-control w-100 mx-auto mb-3" id="result" placeholder="날짜를 선택하세요." disabled="">
+            </div>
+            <div class="right-bottom-content">
+                <button class="raceNumBtn-1" id="raceBtn">1 경주</button>
+                <button class="raceNumBtn-2" id="raceBtn">2 경주</button>
+                <button class="raceNumBtn-3" id="raceBtn">3 경주</button>
+                <button class="raceNumBtn-4" id="raceBtn">4 경주</button>
+                <button class="raceNumBtn-5" id="raceBtn">5 경주</button>
+                <button class="raceNumBtn-6" id="raceBtn">6 경주</button>
+                <button class="raceNumBtn-7" id="raceBtn">7 경주</button>
+                <button class="raceNumBtn-8" id="raceBtn">8 경주</button>
+                <button class="raceNumBtn-9" id="raceBtn">9 경주</button>
+                <button class="raceNumBtn-10" id="raceBtn">10 경주</button>
+                <button class="raceNumBtn-11" id="raceBtn">11 경주</button>
+                <button class="raceNumBtn-12" id="raceBtn">12 경주</button>
+                <button class="raceNumBtn-13" id="raceBtn">13 경주</button>
+                <button class="raceNumBtn-14" id="raceBtn">14 경주</button>
+                <button class="raceNumBtn-15" id="raceBtn">15 경주</button>
+                <button class="raceNumBtn-16" id="raceBtn">16 경주</button>
+                <button class="raceNumBtn-17" id="raceBtn">17 경주</button>
+                <button class="raceNumBtn-18" id="raceBtn">18 경주</button>
+                <button class="raceNumBtn-19" id="raceBtn">19 경주</button>
+                <button class="raceNumBtn-20" id="raceBtn">20 경주</button>
+                <div class="noRace">경주가 없습니다.</div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/rome.js"></script>
+    <script src="script_main.js"></script>
+</body>
+
+</html>

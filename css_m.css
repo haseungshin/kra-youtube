@@ -1,0 +1,286 @@
+@font-face{
+    font-family: 'environment';
+    src: local('font/environment'), url(font/environment.ttf) format(truetype);
+}
+
+body{
+    background: antiquewhite;
+}
+
+.main-container {
+    position: absolute;
+    width: 100%; 
+    height: 100%;
+    /*background-color: antiquewhite;*/
+}
+
+
+
+.yt-player-wrapper {
+    width: 100%;
+    height: 38vh;  /* 원래 .yt-player-container의 높이와 동일 */
+}
+
+.yt-player-container {
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    width: 100%;
+    height: 35vh;
+    /*background-color: antiquewhite;*/
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.iframe-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.iframe-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.calendar-container {
+    width: 100%;
+    /*background-color: antiquewhite;*/
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+.race-result-area{
+    width: 100%;
+    display: block;
+    float: left;
+    overflow-y: auto;
+}
+
+
+.race-condition{
+    width: 100%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+    text-align: center;
+    float: left;
+    font-size: 1.1em;
+}
+
+.race-title{
+    width: 100%;
+    display: block;
+    margin-bottom: 10px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.race-inform{
+    width: 100%;
+    display: block;
+}
+
+#date,#rname,#distance {
+    padding: 2%;
+    padding-left: 3.5%;
+    padding-right: 3.5%;
+    font-family: 'environment';
+    font-weight: 100;
+        
+}
+#grade,#age,#budam,#track,#weather{
+    padding: 6px;
+    padding-left: 9px;
+    padding-right: 9px;
+    font-family: 'environment';
+    font-weight:100
+}
+
+
+
+#result-show-button{
+    width: 90%;
+    height: 30px;
+    line-height: 13px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top : 10px;
+    margin-bottom : 10px;
+    font-family: 'environment';
+    font-weight: 100;
+    font-size: 0.9em;
+    letter-spacing: 3px;
+    /* color: white; */
+    background-color: rgb(199, 214, 203);
+    border-color: rgb(132, 168, 142);
+    border-right-style: groove;
+    border-width: 1px;
+}
+
+#result-show-button:focus{
+    outline: none;
+}
+
+#result-content{
+    display: none;
+}
+
+
+
+.location-buttons-area{
+    position: relative;
+    width: 100%;
+    height: 50px;
+    float: left;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    font-family: 'environment';
+ /*   background-color: antiquewhite;*/
+    
+}
+
+.locationBtn{
+    padding-top: 4px;
+    margin-top: 7px;
+    height: 35px;
+    width: 32%;
+    background-color: #e6e6e6;
+    border-style:groove;
+    border-color: white;
+    border-radius: 5px;
+    font-size: 1em;
+    font-weight: 300;
+    /*transition-duration: 0.1s;*/
+    cursor: pointer;
+    display: inline-block;
+    color: #1f1d1d;
+}
+
+.locationBtn.active{
+    
+    
+    padding-top: 4px;
+    margin-top: 7px;
+    height: 35px;
+    width: 32%;
+    background-color: #e6e6e6;
+    border-style:groove;
+    border-color: white;
+    border-radius: 5px;
+    font-size: 1em;
+    font-weight: 300;
+    /*transition-duration: 0.1s;*/
+    cursor: pointer;
+    display: inline-block;
+    color: #1f1d1d;
+    background-color: #fcb9c0;
+}
+
+
+
+
+#locationBtn:focus {
+    outline: none;
+}    
+
+.calendar{
+    position: relative;
+    width: 100%;
+    float: left;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top : 13px;
+   /* background-color: antiquewhite;*/
+}
+
+.calendar-text-area{
+    position: relative;
+    width: 100%;
+    height: 50px;
+    float: left; 
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    /*background-color: antiquewhite;*/
+}
+
+#result {
+    text-align: center;
+    font-family: 'environment';
+    font-size: 0.95em;
+    font-weight: 100;
+    letter-spacing: 1.5px;
+    padding-top: 4px;
+    margin-bottom: 0;
+    background-color: #ffdeb0;
+    border: none;
+    color: #1f1d1d;
+}
+
+
+.race-buttons-area{
+    width: 100%;
+    height: 100%;
+    float: left;
+    clear: left;
+    font-family: 'environment';
+    /*overflow-y: scroll;*/
+    padding-top: 10px;
+    /*background-color: antiquewhite;*/
+        
+}
+
+
+
+#raceBtn{
+    position: relative;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 15px;
+    width: 90%;
+    max-width: 350px;
+    height: 30px;
+    background-color: #e6e6e6;
+    border-style:groove;
+    border-color: white;
+    border-radius: 5px;
+    font-size: 0.9em;
+    color: #1f1d1d;
+}
+
+#raceBtn:focus{
+    outline: none;
+}
+
+
+
+
+.noRace{
+    display: none;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    margin-top: 100px;
+    color: #1f1d1d;
+}
+
+
+
+.ytplayer{
+    width : 100%;
+    height : 100%;
+}
