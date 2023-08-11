@@ -72,7 +72,7 @@ function changeVideo(videoId, number) {
     let race_track = document.querySelector("#track");
     let race_weather = document.querySelector("#weather");
     race_table.innerHTML = '';
-    document.getElementById('ytplayer').src = `https://www.youtube.com/embed/${videoId}?vq=hd1080&rel=0&autoplay=1`;
+    document.getElementById('ytplayer').src = `https://www.youtube.com/embed/${videoId}?vq=hd1080&rel=0`;
     let race_key = document.querySelector("#result").value+' '+document.querySelector(`.raceNumBtn-${number}`).textContent.match(/\d+/)[0];
     console.log("레이스 키 : ", race_key)
 
