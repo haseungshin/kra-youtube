@@ -72,7 +72,7 @@ body{
     margin-bottom: 20px;
     text-align: center;
     float: left;
-    font-size: 1.1em;
+    font-size: 1.2em;
 }
 
 .race-title{
@@ -124,10 +124,12 @@ body{
     border-color: rgb(132, 168, 142);
     border-right-style: groove;
     border-width: 1px;
+    color: black;
 }
 
 #result-show-button:focus{
     outline: none;
+    color: black;
 }
 
 #result-content{
