@@ -86,7 +86,7 @@ function changeVideo(videoId, number) {
     let race_key = document.querySelector("#result").value+' '+document.querySelector(`.raceNumBtn-${number}`).textContent.match(/\d+/)[0];
     console.log("레이스 키 : ", race_key)
 
-    fetch(`http://127.0.0.1:5000/get-data?key=${race_key}`, {
+    fetch(`http://kraserver.pythonanywhere.com/get-data?key=${race_key}`, {
       mode: 'cors'
     })
       .then(response => response.json())
@@ -208,7 +208,7 @@ function changeLocation(loc) {
 
 function raceBtnRenderer(date){
     
-    fetch(`http://127.0.0.1:5000/get-video?key=${date}`, {
+    fetch(`https://kraserver.pythonanywhere.com/get-video?key=${date}`, {
       mode: 'cors'
     })
       .then(response => response.json())
