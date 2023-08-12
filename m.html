@@ -51,7 +51,9 @@
                     </div>
                     
                 </div>
-                <button class="result-show-button" id="result-show-button" type="button" onclick="">결과보기 ▼</button>
+                <button class="result-show-button" id="result-show-button" type="button" onclick=""><img class="result-img" src="img/result-img.png"> 결과보기 <span class="click">(Click)</span>
+                
+                </button>
                 <div class="table-responsive small" id="result-content">
                     <table class="table table-striped table-sm text-nowrap">
                         <thead>
@@ -75,11 +77,46 @@
                         </table>
                 </div>
             </div>
+            
+            
             <div class="location-buttons-area">
                 <button class="locationBtn" id="seoul" onclick="changeLocation('(서울)')">서울</button>
                 <button class="locationBtn" id="busan" onclick="changeLocation('(부산)')">부산</button>
                 <button class="locationBtn" id="jeju" onclick="changeLocation('(제주)')">제주</button>
             
+            </div>
+            <div class="date-selector"> <span class="date-selector-title"></span>
+                <!-- 년도 선택 -->
+                <select id="year" onchange="adjustDays()">
+                    <option value="2019">2019</option>
+                    <option value="2020">2020</option>
+                    <option value="2021">2021</option>
+                    <option value="2022">2022</option>
+                    <option value="2023">2023</option>
+                </select>
+
+                <!-- 월 선택 -->
+                <select id="month" onchange="adjustDays()">
+                    <option value="1">1월</option>
+                    <option value="2">2월</option>
+                    <option value="3">3월</option>
+                    <option value="4">4월</option>
+                    <option value="5">5월</option>
+                    <option value="6">6월</option>
+                    <option value="7">7월</option>
+                    <option value="8">8월</option>
+                    <option value="9">9월</option>
+                    <option value="10">10월</option>
+                    <option value="11">11월</option>
+                    <option value="12">12월</option>
+                </select>
+
+                <!-- 일 선택 -->
+                <select id="day">
+
+                </select>
+                <button type="button" id="calendar-switch">접기▲</button>
+                
             </div>
             <div class="calendar">
                 <div class="content">
@@ -97,6 +134,9 @@
                     </div>
                 </div>
             </div>
+            <!-- 날짜 선택 -->
+
+
             <div class="calendar-text-area">
                 <input type="text" class="form-control w-100 mx-auto mb-3" id="result" placeholder="날짜를 선택하세요." disabled="">
             </div>
@@ -123,7 +163,13 @@
             <button class="raceNumBtn-18" id="raceBtn">18 경주</button>
             <button class="raceNumBtn-19" id="raceBtn">19 경주</button>
             <button class="raceNumBtn-20" id="raceBtn">20 경주</button>
-            <div class="noRace">경주가 없습니다.</div>
+            <div class="noRace">
+                <p style="color: black; font-size: 23px;">해당 경주가 없습니다. </p>
+                <p style="color: black; font-size: 20px; margin-top: 50px;">-- 경주 시행일 --</p>
+                <p style="color: black;">[ <span>금</span> : 부산 / 제주 ]</p>
+                <p style="color: black;">[ <span>토</span> : 서울 / 제주 ]</p>
+                <p style="color: black;">[ <span>일</span> : 서울 / 부산 ]</p>
+            </div>
         </div>
     </div>
     
