@@ -151,11 +151,11 @@ result_button.addEventListener('click', function() {
     if (result_content.style.display === 'none' || result_content.style.display === '') {
         result_content.style.display = 'block';
         result_button.innerHTML = '접기 ▲';
-        result_button.style.color = '#1d2a19'
+        result_button.style.color = 'white'
     } else {
         result_content.style.display = 'none';
         result_button.innerHTML = '<img class="result-img" src="img/result-img.png"> 결과보기 <span class="click">(Click)</span>';
-        result_button.style.color = '#1d2a19'
+        result_button.style.color = 'white'
     }
 });
 
@@ -208,7 +208,7 @@ function changeLocation(loc) {
 
 function raceBtnRenderer(date){
     
-    fetch(`https://kraserver.pythonanywhere.com/get-video?key=${date}`, {
+    fetch(`kraserver.pythonanywhere.com/get-video?key=${date}`, {
       mode: 'cors'
     })
       .then(response => response.json())
