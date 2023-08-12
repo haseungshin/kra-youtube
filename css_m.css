@@ -360,3 +360,7 @@ calendar-switch:focus {
     outline: none;
 }
 
+select {
+    color: #151313 !important; 
+}
+
