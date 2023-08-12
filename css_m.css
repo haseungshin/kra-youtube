@@ -14,7 +14,9 @@ body{
     /*background-color: antiquewhite;*/
 }
 
-
+select {
+    color: #151313 !important; 
+}
 
 .yt-player-wrapper {
     width: 100%;
