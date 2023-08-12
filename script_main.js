@@ -154,7 +154,7 @@ result_button.addEventListener('click', function() {
         result_button.style.color = 'white'
     } else {
         result_content.style.display = 'none';
-        result_button.innerHTML = '<img class="result-img" src="img/result-img.png"> 결과보기 <span class="click">(Click)</span>';
+        result_button.innerHTML = '▼ 결과보기 <span class="click">(Click)</span>';
         result_button.style.color = 'white'
     }
 });
