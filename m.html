@@ -15,6 +15,189 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
+<!DOCTYPE html>
+<html lang="kor">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="Cache-Control" content="no-store">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="fonts/icomoon/style.css">
+    <link rel="stylesheet" href="css/rome.css">
+    <link rel="stylesheet" href="css_m.css">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+    <!-- Style -->
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://www.youtube.com/iframe_api"></script>
+    
+
+    <title>KRA Video</title>
+</head>
+
+<body>
+    <div id="main-container" class="main-container">
+        <div id="yt-player-wrapper" class="yt-player-wrapper"></div>
+        <div id="yt-player-container" class="yt-player-container">
+            <div id="iframe-wrapper" class="iframe-wrapper">
+                <iframe id="ytplayer" class="ytplayer" width="560" height="315" src="https://www.youtube.com/embed/wGZHSpdaxhg?vq=hd1080&rel=0&autoplay=1" frameborder="0" allow="accelerometer; autoplay; picture-in-picture" allowfullscreen></iframe>        
+            </div>
+
+        </div>
+        <div id="calendar-container" class="calendar-container">
+            <div class="race-result-area">
+                <div class="race-condition">
+                    <div class="race-title">
+                        <span class="badge bg-primary-subtle text-primary-emphasis rounded-pill" id="date">경주일자</span>
+                        <span class="badge bg-secondary-subtle text-secondary-emphasis rounded-pill" id="rname">경주명</span>
+                        <span class="badge bg-danger-subtle text-danger-emphasis rounded-pill" id="distance">거리</span>
+                    </div>
+                    <div class="race-inform">
+                        
+                        <span class="badge bg-success-subtle text-success-emphasis rounded-pill" id="grade">등급</span>
+                        <span class="badge bg-warning-subtle text-warning-emphasis rounded-pill" id="age">연령</span>
+                        <span class="badge bg-info-subtle text-info-emphasis rounded-pill" id="budam">부담중량</span>
+                        <span class="badge bg-dark-subtle text-dark-emphasis rounded-pill" id="track">주로상태</span>
+                        <span class="badge bg-light-subtle text-light-emphasis rounded-pill" id="weather">날씨</span>
+                    </div>
+                    
+                </div>
+                <button class="result-show-button" id="result-show-button" type="button" onclick=""><img class="result-img" src="img/result-img.png"> 결과보기 <span class="click">(Click)</span>
+                
+                </button>
+                <div class="table-responsive small" id="result-content">
+                    <table class="table table-striped table-sm text-nowrap">
+                        <thead>
+                            <tr>
+                                <th scope="col" style="text-align: center;">순위</th>
+                                <th scope="col" style="text-align: center;">경주마</th>
+                                <th scope="col">기수</th>
+                                <th scope="col">착차</th>
+                                <th scope="col">기록</th>
+                                <th scope="col">단승식</th>
+                                <th scope="col">연승식</th>
+                                <th scope="col">중량</th>
+                                <th scope="col">체중</th>
+                                <th scope="col">나이</th>
+    
+    
+                            </tr>
+                        </thead>
+                        <tbody class="result-table">
+                        </tbody>
+                        </table>
+                </div>
+            </div>
+            
+            
+            <div class="location-buttons-area">
+                <button class="locationBtn" id="seoul" onclick="changeLocation('(서울)')">서울</button>
+                <button class="locationBtn" id="busan" onclick="changeLocation('(부산)')">부산</button>
+                <button class="locationBtn" id="jeju" onclick="changeLocation('(제주)')">제주</button>
+            
+            </div>
+            <div class="date-selector"> <span class="date-selector-title"></span>
+                <!-- 년도 선택 -->
+                <select id="year" onchange="adjustDays()">
+                    <option value="2019">2019</option>
+                    <option value="2020">2020</option>
+                    <option value="2021">2021</option>
+                    <option value="2022">2022</option>
+                    <option value="2023">2023</option>
+                </select>
+
+                <!-- 월 선택 -->
+                <select id="month" onchange="adjustDays()">
+                    <option value="1">1월</option>
+                    <option value="2">2월</option>
+                    <option value="3">3월</option>
+                    <option value="4">4월</option>
+                    <option value="5">5월</option>
+                    <option value="6">6월</option>
+                    <option value="7">7월</option>
+                    <option value="8">8월</option>
+                    <option value="9">9월</option>
+                    <option value="10">10월</option>
+                    <option value="11">11월</option>
+                    <option value="12">12월</option>
+                </select>
+
+                <!-- 일 선택 -->
+                <select id="day">
+
+                </select>
+                <button type="button" id="calendar-switch">달력접기▲</button>
+                
+            </div>
+            <div class="calendar">
+                <div class="content">
+                    <div class="container text-left">
+                        <div class="row justify-content-center">
+                            <div class="col-md-10 text-center">
+
+                                <form action="#" class="row">
+                                    <div class="col-md-12">
+                                            <div id="inline_cal"></div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 날짜 선택 -->
+
+
+            <div class="calendar-text-area">
+                <input type="text" class="form-control w-100 mx-auto mb-3" id="result" placeholder="날짜를 선택하세요." disabled="">
+            </div>
+        </div>
+        
+        <div class="race-buttons-area">
+            <button class="raceNumBtn-1" id="raceBtn">1 경주</button>
+            <button class="raceNumBtn-2" id="raceBtn">2 경주</button>
+            <button class="raceNumBtn-3" id="raceBtn">3 경주</button>
+            <button class="raceNumBtn-4" id="raceBtn">4 경주</button>
+            <button class="raceNumBtn-5" id="raceBtn">5 경주</button>
+            <button class="raceNumBtn-6" id="raceBtn">6 경주</button>
+            <button class="raceNumBtn-7" id="raceBtn">7 경주</button>
+            <button class="raceNumBtn-8" id="raceBtn">8 경주</button>
+            <button class="raceNumBtn-9" id="raceBtn">9 경주</button>
+            <button class="raceNumBtn-10" id="raceBtn">10 경주</button>
+            <button class="raceNumBtn-11" id="raceBtn">11 경주</button>
+            <button class="raceNumBtn-12" id="raceBtn">12 경주</button>
+            <button class="raceNumBtn-13" id="raceBtn">13 경주</button>
+            <button class="raceNumBtn-14" id="raceBtn">14 경주</button>
+            <button class="raceNumBtn-15" id="raceBtn">15 경주</button>
+            <button class="raceNumBtn-16" id="raceBtn">16 경주</button>
+            <button class="raceNumBtn-17" id="raceBtn">17 경주</button>
+            <button class="raceNumBtn-18" id="raceBtn">18 경주</button>
+            <button class="raceNumBtn-19" id="raceBtn">19 경주</button>
+            <button class="raceNumBtn-20" id="raceBtn">20 경주</button>
+            <div class="noRace">
+                <p style="color: black; font-size: 23px;">해당 경주가 없습니다. </p>
+                <p style="color: black; font-size: 20px; margin-top: 50px;">-- 경주 시행일 --</p>
+                <p style="color: black;">[ <span>금</span> : 부산 / 제주 ]</p>
+                <p style="color: black;">[ <span>토</span> : 서울 / 제주 ]</p>
+                <p style="color: black;">[ <span>일</span> : 서울 / 부산 ]</p>
+            </div>
+        </div>
+    </div>
+    
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/rome.js"></script>
+    <script src="script_main.js"></script>
+</body>
+
+</html>
 
     <!-- Style -->
     <link rel="stylesheet" href="css/style.css">
