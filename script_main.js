@@ -82,6 +82,8 @@ function changeVideo(videoId, number) {
     let race_budam = document.querySelector("#budam");
     let race_track = document.querySelector("#track");
     let race_weather = document.querySelector("#weather");
+    let weather_icon = document.querySelector("#weather-icon");
+    
     race_table.innerHTML = '';
     document.getElementById('ytplayer').src = `https://www.youtube.com/embed/${videoId}?vq=hd1080&rel=0`;
     let race_key = document.querySelector("#result").value+' '+document.querySelector(`.raceNumBtn-${number}`).textContent.match(/\d+/)[0];
@@ -104,10 +106,37 @@ function changeVideo(videoId, number) {
                 race_budam.innerText = data[key][0]["budam_condition"]
                 race_track.innerText = data[key][0]["track_condition"]
                 race_weather.innerText = data[key][0]["weather"]
+                if(data[key][0]["weather"] === '흐림'){
+                    weather_icon.innerHTML = '☁'
+                }
+                else if(data[key][0]["weather"] === '맑음'){
+                    weather_icon.innerHTML = '⛅'
+                }
+                else if(data[key][0]["weather"] === '비'){
+                    weather_icon.innerHTML = '🌧'
+                }
+                else if(data[key][0]["weather"] === '안개'){
+                    weather_icon.innerHTML = '🌫'
+                }
+                else if(data[key][0]["weather"] === '눈'){
+                    weather_icon.innerHTML = '❄'
+                }
+                
+                
 
                 for (let i = 1; i < data[key].length; i++){
 
                     let rank = data[key][i]["rank"];
+                    if (rank === 1){
+                        rank = '🥇'
+                    }
+                    if (rank === 2){
+                        rank = '🥈'
+                    }
+                    if (rank === 3){
+                        rank = '🥉'
+                    }
+                    
                     let horse_number = data[key][i]["horse_number"];
                     //let number_img_url = `./img/${horse_number}_n.png`;
                     let horse_name = data[key][i]["horse_name"];
@@ -155,7 +184,7 @@ result_button.addEventListener('click', function() {
         result_button.style.color = 'white'
     } else {
         result_content.style.display = 'none';
-        result_button.innerHTML = '▼ 결과보기 <span class="click">(Click)</span>';
+        result_button.innerHTML = '🐴 결과보기 <span class="click">(Click)</span>';
         result_button.style.color = 'white'
     }
 });
@@ -163,12 +192,12 @@ result_button.addEventListener('click', function() {
 
 
 calendar_switch.addEventListener('click', function() {
-    if (calenderElement.style.display === 'none' || calenderElement.style.display === '') {
+    if (calenderElement.style.display === 'none') {
         calenderElement.style.display = 'block';
         calendar_switch.innerHTML = "달력접기▲"
     } else {
         calenderElement.style.display = 'none';
-        calendar_switch.innerHTML = "펼치기▼"
+        calendar_switch.innerHTML = "펼치기▼";
     }
 });
 
@@ -204,12 +233,22 @@ function changeLocation(loc) {
         for (let i = 0; i <= btnElements.length-1; i++){
             btnElements[i].style.display = 'none';
         };
-    noRace.style.display = 'none';
+    noRace.style.display = 'block';
+    noRace.innerHTML = `<p style="color: black; font-size: 20px;"><span id="location"></span>🐴 달력의 날짜를 터치하세요.</p>`;
+    
+    
 }
 
 
 function raceBtnRenderer(date){
     
+    noRace.innerHTML = `<div class="text-center">
+  <div class="spinner-border" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>`
+        
+        
     fetch(`https://kraserver.pythonanywhere.com/get-video?key=${date}`, {
       mode: 'cors'
     })
@@ -232,6 +271,11 @@ function raceBtnRenderer(date){
         
     if (count === 0){
         noRace.style.display = 'block'; // "경주가 없습니다. 문구 삽입"
+        noRace.innerHTML = `<p style="color: black; font-size: 21px;"><span id="location"></span>경주영상이 없습니다. </p>
+                <p style="color: black; font-size: 18px; margin-top: 18px;">-- 경주 시행일 --</p>
+                <p style="color: black;">[ <span>금</span> : 부산 / 제주 ]</p>
+                <p style="color: black;">[ <span>토</span> : 서울 / 제주 ]</p>
+                <p style="color: black;">[ <span>일</span> : 서울 / 부산 ]</p>`
         const location_noRace = document.querySelector("#location")
         location_noRace.innerHTML = location_+' ';
     }
@@ -276,10 +320,10 @@ function setDate(dateString) {
 
 
 
-function run(date){
+function run(date){ // 달력을 클릭했을 때 실행되는 함수
     
 
-    setDateDropdown(date)
+    setDateDropdown(date) // 달력 입력 위젯에 날짜 셋팅
     
         // 월, 화, 수, 목의 th 요소 선택
     let thElements = document.querySelectorAll('.rd-days-row th.rd-day-head:nth-child(-n+5):nth-child(n+2)');
