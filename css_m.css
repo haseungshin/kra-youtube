@@ -125,7 +125,7 @@ body{
     margin-bottom : 10px;
     font-family: 'environment';
     font-weight: 100;
-    font-size: 1em;
+    font-size: 1.15em;
     letter-spacing: 3px;
     /* color: white; */
     border: none;
@@ -186,7 +186,7 @@ body{
     border-style:groove;
     border-color: white;
     border-radius: 5px;
-    font-size: 1em;
+    font-size: 1.17em;
     font-weight: 300;
     /*transition-duration: 0.1s;*/
     cursor: pointer;
@@ -206,7 +206,7 @@ body{
     border-style:groove;
     border-color: white;
     border-radius: 5px;
-    font-size: 1em;
+    font-size: 1.17em;
     font-weight: 300;
     /*transition-duration: 0.1s;*/
     cursor: pointer;
@@ -329,7 +329,7 @@ body{
 .date-selector-title{
     font-family: 'environment';
     font-weight: 100;
-    font-size: 1.em;
+    font-size: 1.2em;
 }
 
 .date-selector select {
