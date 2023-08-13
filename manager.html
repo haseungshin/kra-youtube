@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="kor">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="Cache-Control" content="no-store">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>관리자 페이지 (YouTube 비디오)</title>
+    
+</head>
+
+<body>
+
+     제목 : <input type="text" id="title" placeholder="(서울) 2023.08.13 9경주">
+      / Video ID : <input type="text" id="video-id" placeholder="PFd0XxQaTXg">
+    <button onclick="printToConsole()">DB전송</button>
+    <div class="response-data" style="display: block; position: relative; width: 300px; height: auto; border: 2px solid; margin-top: 30px; padding-left: 20px"></div>
+    
+    
+    <script>
+        const response_data = document.querySelector(".response-data")
+        function printToConsole() {
+            var temp_key = document.getElementById("title").value;
+            var video_id = document.getElementById("video-id").value;
+            var key = temp_key.replace("경주", "");
+            console.log(key); //(서울) 2023.08.13 1경주
+            
+            fetch(`http://127.0.0.1:5000/set-data?key=${key}&vid=${video_id}`, {
+                mode: 'cors'
+              })
+                .then(response => response.json())
+                .then(data => {
+                  console.log(data);
+                  response_data.innerHTML =
+                  `<h3>DB 입력 완료</h3>
+                   <p>${key}경주</p>
+                   <p>유튜브 : ${data["youtube"]}</p>
+                   <p>명칭 : ${data[key][0]["race_name"]}</p>
+                   <p>거리 : ${data[key][0]["race_distance"]}m</p>
+                   <p>등급 : ${data[key][0]["grade"]}</p>
+                   <p>연령 : ${data[key][0]["age_condition"]}</p>
+                   <p>중량 : ${data[key][0]["budam_condition"]}</p>
+                   <p>주로 : ${data[key][0]["track_condition"]}</p>
+                   <p>날씨 : ${data[key][0]["weather"]}</p>`
+                 });
+            }
+
+    </script>
+    <script src="js/jquery-3.3.1.min.js"></script>
+</body>
+
+</html>
