@@ -48,10 +48,11 @@
                         <span class="badge bg-info-subtle text-info-emphasis rounded-pill" id="budam">부담중량</span>
                         <span class="badge bg-dark-subtle text-dark-emphasis rounded-pill" id="track">주로상태</span>
                         <span class="badge bg-light-subtle text-light-emphasis rounded-pill" id="weather">날씨</span>
+                        <span class="weather-icon" id="weather-icon"></span>
                     </div>
                     
                 </div>
-                <button class="result-show-button" id="result-show-button" type="button" onclick="">▼ 결과보기 <span class="click">(Click)</span>
+                <button class="result-show-button" id="result-show-button" type="button" onclick="">🐴 결과보기 <span class="click">(Click)</span>
                 
                 </button>
                 <div class="table-responsive small" id="result-content">
@@ -85,7 +86,7 @@
                 <button class="locationBtn" id="jeju" onclick="changeLocation('(제주)')">제주</button>
             
             </div>
-            <div class="date-selector"> <span class="date-selector-title"></span>
+            <div class="date-selector"> <span class="date-selector-title">📅</span>
                 <!-- 년도 선택 -->
                 <select id="year" onchange="adjustDays()">
                     <option value="2019">2019</option>
@@ -164,11 +165,13 @@
             <button class="raceNumBtn-19" id="raceBtn">19 경주</button>
             <button class="raceNumBtn-20" id="raceBtn">20 경주</button>
             <div class="noRace">
+<!--
                 <p style="color: black; font-size: 23px;"><span id="location"></span>경주영상이 없습니다. </p>
                 <p style="color: black; font-size: 20px; margin-top: 50px;">-- 경주 시행일 --</p>
                 <p style="color: black;">[ <span>금</span> : 부산 / 제주 ]</p>
                 <p style="color: black;">[ <span>토</span> : 서울 / 제주 ]</p>
                 <p style="color: black;">[ <span>일</span> : 서울 / 부산 ]</p>
+-->
             </div>
         </div>
     </div>
