@@ -6,6 +6,7 @@ let raceNum = null;
 let videoJson = null;
 let toglel = 0;
 let presetDate = null;
+let count = 0;
 
 
 
@@ -203,6 +204,7 @@ function changeLocation(loc) {
         for (let i = 0; i <= btnElements.length-1; i++){
             btnElements[i].style.display = 'none';
         };
+    noRace.style.display = 'none';
 }
 
 
@@ -213,7 +215,6 @@ function raceBtnRenderer(date){
     })
       .then(response => response.json())
       .then(data => {
-        console.log(data);
         for (let key in data) {
             if (key.includes(date)) {
                 num = key.split(" ").pop(); // (서울) 2023.08.06 1에서 제일 마지막 : 1
@@ -225,9 +226,21 @@ function raceBtnRenderer(date){
                 console.log('비디오 아이디',videoID);
                 videoBtn.setAttribute('onclick', `changeVideo("${videoID}",${num})`); // 버튼에 onclick 속성 부여
                 noRace.style.display = 'none'; //"경주가 없습니다" 문구 제거
+                count = count + 1
             }
         }
+        
+    if (count === 0){
+        noRace.style.display = 'block'; // "경주가 없습니다. 문구 삽입"
+        const location_noRace = document.querySelector("#location")
+        location_noRace.innerHTML = location_+' ';
+    }
+    else{
+        count = 0;
+    }
+    
     buttons = document.querySelectorAll('[id="raceBtn"]'); // 모든 경주 버튼 가져오기
+
     var selectedButton;
     for(var i = 0; i < buttons.length; i++) {
         buttons[i].addEventListener('click', function(event) {
@@ -267,9 +280,6 @@ function run(date){
     
 
     setDateDropdown(date)
-
-    
-    console.log("체크체크체킃")
     
         // 월, 화, 수, 목의 th 요소 선택
     let thElements = document.querySelectorAll('.rd-days-row th.rd-day-head:nth-child(-n+5):nth-child(n+2)');
@@ -289,7 +299,7 @@ function run(date){
         btnElements[i].style.display = 'none';
     };
     
-    noRace.style.display = 'block'; // "경주가 없습니다. 문구 삽입"
+    
     result.value = date;
     selectedDate = document.querySelector("#result").value; // 
     let selectedDate_L = `${location_} ${selectedDate}`; //'(서울) 2023.08.22' <- 지역 삽입
