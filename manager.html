@@ -18,7 +18,8 @@
 
      제목 : <input type="text" id="title" placeholder="(서울) 2023.08.13 9경주">
       / Video ID : <input type="text" id="video-id" placeholder="PFd0XxQaTXg">
-    <button onclick="printToConsole()">DB전송</button>
+    <button onclick="printToConsole()">DB전송</button><span> </span>
+    <button id="restart-btn" onclick="restartServer()" style="display: none;">서버 재시작</button>
     <div class="response-data" style="display: block; position: relative; width: 300px; height: auto; border: 2px solid; margin-top: 30px; padding-left: 20px"></div>
     
     
@@ -27,6 +28,7 @@
         function printToConsole() {
             var temp_key = document.getElementById("title").value;
             var video_id = document.getElementById("video-id").value;
+            var restart_btn = document.getElementById("restart-btn")
             var key = temp_key.replace("경주", "");
             console.log(key); //(서울) 2023.08.13 1경주
             
@@ -47,8 +49,21 @@
                    <p>중량 : ${data[key][0]["budam_condition"]}</p>
                    <p>주로 : ${data[key][0]["track_condition"]}</p>
                    <p>날씨 : ${data[key][0]["weather"]}</p>`
+                   restart_btn.style.display = ''
                  });
             }
+            
+        function restartServer() {
+          const token = "1bf24b3d4fa519c64527cd3da1005fd0e44505cc"
+          print("토큰 전송")
+          fetch(`https://kraserver.pythonanywhere.com/restart?token=${token}`, {
+                mode: 'cors'
+              })
+                .then(response => response.json())
+                .then(data => {
+                  console.log(data);
+                });
+        }
 
     </script>
     <script src="js/jquery-3.3.1.min.js"></script>
