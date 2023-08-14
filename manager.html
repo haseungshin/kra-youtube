@@ -30,7 +30,7 @@
             var key = temp_key.replace("경주", "");
             console.log(key); //(서울) 2023.08.13 1경주
             
-            fetch(`http://127.0.0.1:5000/set-data?key=${key}&vid=${video_id}`, {
+            fetch(`https://kraserver.pythonanywhere.com/set-data?key=${key}&vid=${video_id}`, {
                 mode: 'cors'
               })
                 .then(response => response.json())
