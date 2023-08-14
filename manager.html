@@ -6,32 +6,58 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="Cache-Control" content="no-store">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500&display=swap" rel="stylesheet">
 
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="fonts/icomoon/style.css">
+    <link rel="stylesheet" href="css/rome.css">
+    <link rel="stylesheet" href="css_m.css">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+    <!-- Style -->
+    <link rel="stylesheet" href="css/style.css">
 
     <title>관리자 페이지 (YouTube 비디오)</title>
     
 </head>
 
 <body>
+    <div style="display: block; width: 100%; height: 50px; white-space: nowrap;"></div>
 
-     제목 : <input type="text" id="title" placeholder="(서울) 2023.08.13 9경주">
-      / Video ID : <input type="text" id="video-id" placeholder="PFd0XxQaTXg">
-    <button onclick="printToConsole()">DB전송</button><span> </span>
-    <button id="restart-btn" onclick="restartServer()" style="display: none;">서버 재시작</button>
-    <div class="response-data" style="display: block; position: relative; width: 300px; height: auto; border: 2px solid; margin-top: 30px; padding-left: 20px"></div>
+    <div class="container" style="align-items: center;">
+      <div>
+        <div style="white-space: nowrap;;">
+          제목 : <input type="text" id="title" style="width: 250px" placeholder="예 : (서울) 2023.08.13 9경주"> 
+          Video ID : <input type="text" id="video-id" placeholder="예 : PFd0XxQaTXg"><button style="margin-left: 10px;" onclick="printToConsole()">DB전송</button>
+          <button id="restart-btn" onclick="restartServer()" style="display: none; margin-left: 10px;">서버 Reload</button><span id="check" style="display: none">✔</span>
+        </div>
+          
+        
+        <div class="response-data" style="display: block; position: relative; width: 300px; height: auto; border: 1px solid; margin-top: 30px; padding-left: 20px; color: black"></div>
+    </div>
     
     
     <script>
-        const response_data = document.querySelector(".response-data")
+        const response_data = document.querySelector(".response-data");
+        const server_check = document.querySelector("#check");
+        const restart_btn = document.getElementById("restart-btn")
+
         function printToConsole() {
+            server_check.style.display = 'none';
+            restart_btn.style.display = 'none';
+
             var temp_key = document.getElementById("title").value;
             var video_id = document.getElementById("video-id").value;
-            var restart_btn = document.getElementById("restart-btn")
+            
             var key = temp_key.replace("경주", "");
             console.log(key); //(서울) 2023.08.13 1경주
-            
+            response_data.innerHTML = `<div class="text-center">
+              <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+            </div>`
             fetch(`https://kraserver.pythonanywhere.com/set-data?key=${key}&vid=${video_id}`, {
                 mode: 'cors'
               })
@@ -40,33 +66,33 @@
                   console.log(data);
                   response_data.innerHTML =
                   `<h3>DB 입력 완료</h3>
-                   <p>${key}경주</p>
-                   <p>유튜브 : ${data["youtube"]}</p>
-                   <p>명칭 : ${data[key][0]["race_name"]}</p>
-                   <p>거리 : ${data[key][0]["race_distance"]}m</p>
-                   <p>등급 : ${data[key][0]["grade"]}</p>
-                   <p>연령 : ${data[key][0]["age_condition"]}</p>
-                   <p>중량 : ${data[key][0]["budam_condition"]}</p>
-                   <p>주로 : ${data[key][0]["track_condition"]}</p>
-                   <p>날씨 : ${data[key][0]["weather"]}</p>`
+                   <span"><p style="color : black;>${key}경주 / 유튜브 : ${data["youtube"]}</p>
+                   <p style="color : black;>명칭 : ${data[key][0]["race_name"]} / 거리 : ${data[key][0]["race_distance"]}m / 등급 : ${data[key][0]["grade"]} / 연령 : ${data[key][0]["age_condition"]} / 중량 : ${data[key][0]["budam_condition"]} / 주로 : ${data[key][0]["track_condition"]} / 날씨 : ${data[key][0]["weather"]}</p></span>`
                    restart_btn.style.display = ''
                  });
             }
-            
+
+
         function restartServer() {
-          const token = "1bf24b3d4fa519c64527cd3da1005fd0e44505cc";
-          console.log("토큰 전송");
-          fetch(`https://kraserver.pythonanywhere.com/restart?token=${token}`, {
+            restart_btn.disabled = true;
+            server_check.style.display = '';
+            const token = "1bf24b3d4fa519c64527cd3da1005fd0e44505cc";
+            console.log("토큰 전송");
+            fetch(`https://kraserver.pythonanywhere.com/restart?token=${token}`, {
                 mode: 'cors'
               })
                 .then(response => response.json())
                 .then(data => {
                   console.log(data);
                 });
-        }
-
+          }
+        
     </script>
     <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/rome.js"></script>
+    <script src="script_main.js"></script>
 </body>
 
 </html>
