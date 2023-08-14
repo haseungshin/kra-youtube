@@ -54,8 +54,8 @@
             }
             
         function restartServer() {
-          const token = "1bf24b3d4fa519c64527cd3da1005fd0e44505cc"
-          print("토큰 전송")
+          const token = "1bf24b3d4fa519c64527cd3da1005fd0e44505cc";
+          console.log("토큰 전송");
           fetch(`https://kraserver.pythonanywhere.com/restart?token=${token}`, {
                 mode: 'cors'
               })
