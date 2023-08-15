@@ -1,6 +1,7 @@
 let location_ = '(서울)';
 let date = today();
-let video = 'r';
+let videoURL = ''
+let video_category = 'r';
 let buttons = null;
 let raceNum = null;
 let videoJson = null;
@@ -15,48 +16,108 @@ let noRace = document.querySelector('.noRace');
 let params = (new URL(document.location)).searchParams; 
 let race = params.get("race"); // 웹사이트 파라미터 ?race="2023.08.22_s1r" 형식으로 전달
 
-
 const result_button = document.querySelector('#result-show-button');
 const result_content = document.querySelector('#result-content');
 const calendar_switch = document.querySelector('#calendar-switch');
 const calenderElement =  document.querySelector('.calendar');
 
 
-if (race !== null) {
-    video = race[race.length - 1]; // 문자열 "2023.08.22_s1r" 에서 r 추출
-    date = race.split('_')[0]; // "2023.08.22_s1r" 에서 "2023.08.22" 추출
-    raceNum = race.split('_')[1].replace(/\D/g, ''); // "s1r" 에서 숫자만 남기고 문자 제거
+function hasCharactersAfterUnderscore(input) {
+    // 정규식 패턴: '_' 문자 뒤에 1개 이상의 문자가 있는지 확인
+    const pattern = /_./;
+    return pattern.test(input);
+}
 
-    let initial = race.split('_')[1][0]; // "2023.08.22_s1r" 에서 s(지역) 추출
-    if (initial === 's'){
-        changeLocation('(서울)');
+
+// 세션스토리지 값 저장 (마지막으로 시청한 유튜브 비디오(새로고침 시 필요))
+function saveValueToSession(key, value) {
+    sessionStorage.setItem(key, value);
+}
+
+// 세션스토리지 값 가져오기
+function getValueFromSession(key) {
+    return sessionStorage.getItem(key);
+}
+
+let mySessionVariable = ""; //유튜브 비디오 url 저장할 변수
+
+// 페이지 로드 시 마지막 저장된 값을 가져옴
+window.onload = function() {
+    const storedSessionValue = getValueFromSession("mySessionKey");
+    if (storedSessionValue !== null) {
+        mySessionVariable = storedSessionValue;
     }
-    else if (initial === 'b'){
-        changeLocation('(부산)');
-    }
-    else if (initial === 'j'){
-        changeLocation('(제주)');
-    }
+    console.log("Loaded session value:", mySessionVariable);
+    document.getElementById('ytplayer').src = mySessionVariable
     
-    let newdate = `${location_} ${date}`;
-    console.log(newdate)
+};
+
+
+if (race !== null) {
     
-    let raceBtns = document.querySelectorAll('#raceBtn')  // 경주 버튼들을 가져온 뒤 
-    for (let i = 0; i <= raceBtns.length-1; i++){
-            raceBtns[i].style.backgroundColor = ''; // 색깔 없애고
+    
+    if (hasCharactersAfterUnderscore(race)){
+        video_category = race[race.length - 1]; // 문자열 "2023.08.22_s1r" 에서 r 추출
+        date = race.split('_')[0]; // "2023.08.22_s1r" 에서 "2023.08.22" 추출
+        raceNum = race.split('_')[1].replace(/\D/g, ''); // "s1r" 에서 숫자만 남기고 문자 제거
+
+        let initial = race.split('_')[1][0]; // "2023.08.22_s1r" 에서 s(지역) 추출
+        if (initial === 's'){
+            changeLocation('(서울)');
+        }
+        else if (initial === 'b'){
+            changeLocation('(부산)');
+        }
+        else if (initial === 'j'){
+            changeLocation('(제주)');
+        }
+
+        let newdate = `${location_} ${date}`;
+        console.log(newdate)
+
+        let raceBtns = document.querySelectorAll('#raceBtn')  // 경주 버튼들을 가져온 뒤 
+        for (let i = 0; i <= raceBtns.length-1; i++){
+                raceBtns[i].style.backgroundColor = ''; // 색깔 없애고
+            };
+
+        // 자바스크립트 변수에 날짜 저장
+        presetDate = {
+            year: parseInt(date.split('.')[0]),
+            month: parseInt(date.split('.')[1]), // 숫자로 저장
+            day: parseInt(date.split('.')[2])
         };
 
-    // 자바스크립트 변수에 날짜 저장
-    presetDate = {
-        year: parseInt(date.split('.')[0]),
-        month: parseInt(date.split('.')[1]), // 숫자로 저장
-        day: parseInt(date.split('.')[2])
-    };
+
+
+        toggle = 1;
+        start(date)
+    }
     
-    
-    
-    toggle = 1;
-    start(date)
+    else {
+        date = race
+        raceNum = ''
+
+        let newdate = `${location_} ${date}`;
+        console.log(newdate)
+
+        let raceBtns = document.querySelectorAll('#raceBtn')  // 경주 버튼들을 가져온 뒤 
+        for (let i = 0; i <= raceBtns.length-1; i++){
+                raceBtns[i].style.backgroundColor = ''; // 색깔 없애고
+            };
+
+        // 자바스크립트 변수에 날짜 저장
+        presetDate = {
+            year: parseInt(date.split('.')[0]),
+            month: parseInt(date.split('.')[1]), // 숫자로 저장
+            day: parseInt(date.split('.')[2])
+        };
+
+
+
+        toggle = 1;
+        start(date)
+    }
+
 
 
 }
@@ -72,6 +133,8 @@ function today(){
 
 
 function changeVideo(videoId, number) {
+    
+    
     //result_content.style.display = 'none';
     let race_table = document.querySelector(".result-table");
     let race_date = document.querySelector("#date");
@@ -85,10 +148,50 @@ function changeVideo(videoId, number) {
     let weather_icon = document.querySelector("#weather-icon");
     
     race_table.innerHTML = '';
-    document.getElementById('ytplayer').src = `https://www.youtube.com/embed/${videoId}?vq=hd1080&rel=0`;
+    
+    
+    // 사용자가 값을 변경할 때마다 저장
+    mySessionVariable = `https://www.youtube.com/embed/${videoId}?vq=hd1080&rel=0`;
+    saveValueToSession("mySessionKey", mySessionVariable);
+    
+    
+    //videoURL = `https://www.youtube.com/embed/${videoId}?vq=hd1080&rel=0`;
+    document.getElementById('ytplayer').src = mySessionVariable;
     let race_key = document.querySelector("#result").value+' '+document.querySelector(`.raceNumBtn-${number}`).textContent.match(/\d+/)[0];
     console.log("레이스 키 : ", race_key)
+    
+    
+    
+    
+    // 새로고침 시 현재 위치에서 새로고침이 되도록
+    let location_initial = '';
+    if (location_ === "(서울)"){
+        location_initial = "s";
+    }
+    else if (location_ === "(부산)"){
+        location_initial = "b";
+    }
+    else if (location_ === "(제주)"){
+        location_initial = "j";
+    }
+        
+    console.log(race_key.split(' ')[1]+'_'+location_initial+race_key.split(' ')[2]+video_category)
+    
+    let video_content = race_key.split(' ')[1]+'_'+location_initial+race_key.split(' ')[2]+video_category
+   
+    // 현재 URL의 파라미터를 가져옵니다.
+    params = new URLSearchParams(window.location.search);
 
+    // 파라미터를 수정합니다.
+    params.set('race', video_content);
+
+    // 주소창의 URL을 변경합니다. 페이지는 새로고침되지 않습니다.
+    let newUrl = window.location.origin + window.location.pathname + '?' + params.toString();
+    history.pushState({}, '', newUrl);
+
+    
+
+    
     fetch(`https://kraserver.pythonanywhere.com/get-data?key=${race_key}`, {
       mode: 'cors'
     })
@@ -242,6 +345,8 @@ function changeLocation(loc) {
 
 function raceBtnRenderer(date){
     
+    
+    // 로드 중 아이콘(스피너) 띄우기
     noRace.innerHTML = `<div class="text-center">
   <div class="spinner-border" role="status">
     <span class="visually-hidden">Loading...</span>
@@ -270,7 +375,7 @@ function raceBtnRenderer(date){
         }
         
     if (count === 0){
-        noRace.style.display = 'block'; // "경주가 없습니다. 문구 삽입"
+        noRace.style.display = 'block'; // "경주가 없습니다." 문구 삽입
         noRace.innerHTML = `<p style="color: black; font-size: 21px;"><span id="location"></span>경주영상이 없습니다. </p>
                 <p style="color: black; font-size: 18px; margin-top: 18px;">-- 경주 시행일 --</p>
                 <p style="color: black;">[ <span>금</span> : 부산 / 제주 ]</p>
@@ -293,23 +398,28 @@ function raceBtnRenderer(date){
             selectedButton.style.backgroundColor = '#fcb9c0';  // Change the color of the clicked button
         });
     }
-    let button = document.querySelector(`.raceNumBtn-${raceNum}`);
-//    button.style.backgroundColor = '#fcb9c0';
-    if (toggle === 1){
-        button.click();  // 자동 클릭
-        toggle = 0;
-    }
-   
-    let rbuttons = document.querySelectorAll('.raceNumBtn');
-    rbuttons.forEach(btn => {
-        if (btn !== button) {
-            btn.style.backgroundColor = '';
+        
+        
+        
+    if (hasCharactersAfterUnderscore(race)){
+        let button = document.querySelector(`.raceNumBtn-${raceNum}`);
+    //    button.style.backgroundColor = '#fcb9c0';
+        if (toggle === 1){
+            button.click();  // 자동 클릭
+            toggle = 0;
         }
-    });
+
+        let rbuttons = document.querySelectorAll('.raceNumBtn'); // 클릭된 버튼을 제외한 모든 버튼 색깔 원래대로
+        rbuttons.forEach(btn => {
+            if (btn !== button) {
+                btn.style.backgroundColor = '';
+            }
+        }); 
+    }
         
     
-
     });
+ 
 }
 
 function setDate(dateString) {
@@ -342,6 +452,21 @@ function run(date){ // 달력을 클릭했을 때 실행되는 함수
         btnElements[i].style.backgroundColor = '';
         btnElements[i].style.display = 'none';
     };
+    
+    
+    
+    // 새로고침 시 현재 위치에서 새로고침 되도록 함
+    
+    // 현재 URL의 파라미터를 가져옵니다.
+    params = new URLSearchParams(window.location.search);
+
+    // 파라미터를 수정합니다.
+    params.set('race', date);
+
+    // 주소창의 URL을 변경합니다. 페이지는 새로고침되지 않습니다.
+    let newUrl = window.location.origin + window.location.pathname + '?' + params.toString();
+    history.pushState({}, '', newUrl);
+    
     
     
     result.value = date;
