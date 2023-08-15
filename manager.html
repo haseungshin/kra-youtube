@@ -24,19 +24,21 @@
 </head>
 
 <body>
-    <div style="display: block; width: 100%; height: 50px; white-space: nowrap;"></div>
-
-    <div class="container" style="align-items: center;">
-      <div>
-        <div style="white-space: nowrap; margin-bottom: 10px; white-space: pre">경주 Title  :  <input type="text" id="title" style="width: 250px" placeholder="예 : (서울) 2023.08.13 9경주"> </div>
-        <div style="white-space: nowrap; margin-bottom: 40px; white-space: pre">Video ID   :   <input type="text" id="video-id" placeholder="예 : PFd0XxQaTXg"></div>
-          <button style="margin-left: 10px;" onclick="printToConsole()">DB전송</button><button id="restart-btn" onclick="restartServer()" style="display: none; margin-left: 10px;">서버 Reload</button><span id="check" style="display: none">✔</span>
+    
+    
+    <div class="container">
+        <div style="margin-bottom: 40px;"><p>(문의) 방송운영부 : 신하승 과장(2075)</p></div>
         <div>
-          
+            <div style="white-space: nowrap; margin-bottom: 10px; white-space: pre">경주 Title  :  <input type="text" id="title" style="width: 250px" placeholder="예 : (서울) 2023.08.13 9경주"> </div>
+            <div style="white-space: nowrap; margin-bottom: 40px; white-space: pre">Video ID   :   <input type="text" id="video-id" placeholder="예 : PFd0XxQaTXg"></div>
+              <button onclick="printToConsole()">DB전송</button><button id="restart-btn" onclick="restartServer()" style="display: none; margin-left: 10px;">서버 Reload</button><span id="check" style="display: none">✔</span>
+            <div>
+
+            </div>
+
+
+            <div class="response-data" style="display: block; position: relative; width: 300px; height: auto; border: 1px solid; margin-top: 30px; padding-left: 20px; color: black"></div>
         </div>
-          
-        
-        <div class="response-data" style="display: block; position: relative; width: 300px; height: auto; border: 1px solid; margin-top: 30px; padding-left: 20px; color: black"></div>
     </div>
     
     
@@ -44,34 +46,42 @@
         const response_data = document.querySelector(".response-data");
         const server_check = document.querySelector("#check");
         const restart_btn = document.getElementById("restart-btn")
+        
 
+        
         function printToConsole() {
-            server_check.style.display = 'none';
-            restart_btn.style.display = 'none';
-
-            var temp_key = document.getElementById("title").value;
-            var video_id = document.getElementById("video-id").value;
+            var temp_key = document.querySelector("#title");
+            var video_id = document.querySelector("#video-id");
             
-            var key = temp_key.replace("경주", "");
-            console.log(key); //(서울) 2023.08.13 1경주
-            response_data.innerHTML = `<div class="text-center">
-              <div class="spinner-border" role="status">
-                <span class="visually-hidden">Loading...</span>
-              </div>
-            </div>`
-            fetch(`https://kraserver.pythonanywhere.com/set-data?key=${key}&vid=${video_id}`, {
-                mode: 'cors'
-              })
-                .then(response => response.json())
-                .then(data => {
-                  console.log(data);
-                  response_data.innerHTML =
-                  `<h3>DB 입력 완료</h3>
-                   <span"><p style="color : black;>${key}경주 / 유튜브 : ${data["youtube"]}</p>
-                   <p style="color : black;>명칭 : ${data[key][0]["race_name"]} / 거리 : ${data[key][0]["race_distance"]}m / 등급 : ${data[key][0]["grade"]} / 연령 : ${data[key][0]["age_condition"]} / 중량 : ${data[key][0]["budam_condition"]} / 주로 : ${data[key][0]["track_condition"]} / 날씨 : ${data[key][0]["weather"]}</p></span>`
-                   restart_btn.style.display = ''
-                 });
+            if(temp_key.value === '' || video_id.value === '') {
+               alert("내용을 모두 입력하세요.");
             }
+            else {
+                server_check.style.display = 'none';
+                restart_btn.style.display = 'none';
+
+                var key = temp_key.value.replace("경주", "");
+                console.log(key); //(서울) 2023.08.13 1경주
+                response_data.innerHTML = `<div class="text-center">
+                  <div class="spinner-border" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+                </div>`
+                fetch(`https://kraserver.pythonanywhere.com/set-data?key=${key}&vid=${video_id}`, {
+                    mode: 'cors'
+                  })
+                    .then(response => response.json())
+                    .then(data => {
+                      console.log(data);
+                      response_data.innerHTML =
+                      `<h3>DB 입력 완료</h3>
+                       <span"><p style="color : black;>${key}경주 / 유튜브 : ${data["youtube"]}</p>
+                       <p style="color : black;>명칭 : ${data[key][0]["race_name"]} / 거리 : ${data[key][0]["race_distance"]}m / 등급 : ${data[key][0]["grade"]} / 연령 : ${data[key][0]["age_condition"]} / 중량 : ${data[key][0]["budam_condition"]} / 주로 : ${data[key][0]["track_condition"]} / 날씨 : ${data[key][0]["weather"]}</p></span>`
+                       restart_btn.style.display = ''
+                     });
+                }         
+            }
+
 
 
         function restartServer() {
